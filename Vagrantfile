@@ -67,4 +67,23 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "playbook.yml"
+    end
+    config.vm.provision "shell", inline: <<-SHELL 
+      sudo apt update
+      sudo apt install apt-transport-https ca-certificates curl software-properties-common
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+      sudo apt update
+      apt-cache policy docker-ce
+      sudo apt install docker-ce
+      sudo systemctl status docker
+      sudo usermod -aG docker vagrant
+    SHELL
+    config.vm.provision "shell", inline: <<-SHELL
+     sudo apt remove --assume-yes vim-tiny
+     sudo apt update
+     sudo apt install --assume-yes vim
+    SHELL
 end
