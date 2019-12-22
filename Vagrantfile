@@ -85,4 +85,13 @@ Vagrant.configure("2") do |config|
     docker -v
     sudo usermod -aG docker vagrant
   SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get install python -y
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo apt-add-repository --yes --update ppa:ansible/ansible
+    sudo apt-get update  
+    sudo apt-get install ansible -y
+    ansible --version
+  SHELL
 end
