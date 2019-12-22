@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -67,23 +67,22 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-    config.vm.provision "ansible" do |ansible|
-      ansible.playbook = "playbook.yml"
-    end
-    config.vm.provision "shell", inline: <<-SHELL 
-      sudo apt update
-      sudo apt install apt-transport-https ca-certificates curl software-properties-common
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-      sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-      sudo apt update
-      apt-cache policy docker-ce
-      sudo apt install docker-ce
-      sudo systemctl status docker
-      sudo usermod -aG docker vagrant
-    SHELL
-    config.vm.provision "shell", inline: <<-SHELL
-     sudo apt remove --assume-yes vim-tiny
-     sudo apt update
-     sudo apt install --assume-yes vim
-    SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get remove --assume-yes vim-tiny
+    sudo apt-get update
+    sudo apt-get install --assume-yes vim
+  SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    export DEBIAN_FRONTEND=noninteractive
+    sudo apt-get -y update
+    sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+    sudo apt-get -y update
+    sudo apt-cache policy docker-ce
+    sudo apt-get -y install docker-ce
+    sudo systemctl docker start
+    docker -v
+    sudo usermod -aG docker vagrant
+  SHELL
 end
