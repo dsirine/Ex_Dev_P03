@@ -21,10 +21,10 @@ Vous allez maintenant installer des outils dans votre VM Vagrant. Faites évolue
 
 Votre image contiendra un serveur nginx, et devra donc également être accessible en HTTP : \
     - création un fichier Dockerfile dans la VM ainsi le fichier default de configuration \
-    - docker build -t nginx . \
-    - docker images \
-    - docker run -d -p 80:80 nginx \
-    - docker ps \
-    - sudo ufw allow 80 \
-    - curl localhost \
+    $ docker build -t nginx . \
+    $ docker images \
+    $ docker run -d -p 80:80 nginx \
+    $ docker ps \
+    $ sudo ufw allow 80 \
+    $ curl localhost \
     - forwarding les ports hosts et guest
