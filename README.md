@@ -28,3 +28,5 @@ Votre image contiendra un serveur nginx, et devra donc également être accessib
     $ sudo ufw allow 80 \
     $ curl localhost \
     - forwarding les ports hosts et guest
+## Resultat ##
+![nginx](https://user-images.githubusercontent.com/22502018/71425465-9503da00-269d-11ea-9103-6be556dfc149.png)
