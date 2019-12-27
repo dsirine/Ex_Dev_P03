@@ -1,6 +1,8 @@
 ## Installation de VM ##
 
 Afin de mettre en place une machine virtuelle, vous utiliserez l'outil Vagrant, qui permet de décrire et de manipuler très facilement les différents éléments de votre environnement: \
+
+```bash
     $ sudo apt install virtualbox \
     $ sudo apt install vagrant \
     $ vagrant --version \
@@ -9,6 +11,7 @@ Afin de mettre en place une machine virtuelle, vous utiliserez l'outil Vagrant, 
     $ vagrant init ubuntu/bionic64 \
     $ vagrant up \
     $ vagrant ssh
+```
 
 ## Installation environnement de travail ##
 
@@ -21,13 +24,17 @@ Vous allez maintenant installer des outils dans votre VM Vagrant. Faites évolue
 
 Votre image contiendra un serveur nginx, et devra donc également être accessible en HTTP : \
     - création un fichier Dockerfile dans la VM ainsi le fichier default de configuration \
+
+```bash
     $ docker build -t nginx . \
     $ docker images \
     $ docker run -d -p 80:80 nginx \
     $ docker ps \
     $ sudo ufw allow 80 \
     $ curl localhost \
-    - forwarding les ports hosts et guest
+```
+
+    - Ne pas oublier de forwarder les ports hosts et guest
 ## Resultat ##
 ![nginx](https://user-images.githubusercontent.com/22502018/71425496-fdeb5200-269d-11ea-94e6-257ee327d432.png)
 
